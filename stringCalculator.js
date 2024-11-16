@@ -1,7 +1,17 @@
 function add(numbers) {
   if (!numbers) return 0;
 
-  const numArray = numbers.replace(/\n/g, ",").split(",").map(Number);
+  let delimiter = ",";
+  if (numbers.startsWith("//")) {
+    const parts = numbers.split("\n");
+    delimiter = parts[0].substring(2);
+    numbers = parts[1];
+  }
+
+  const numArray = numbers
+    .replace(/\n/g, delimiter)
+    .split(delimiter)
+    .map(Number);
   return numArray.reduce((sum, num) => sum + num, 0);
 }
 
